@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="test"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/mainText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -21,6 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -61,6 +65,22 @@
         android:text="onSuspend"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/coroutineCallback" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/coroutineChildException"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="childException"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/coroutineSuspend" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/coroutineParentException"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ParentException"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/coroutineChildException" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

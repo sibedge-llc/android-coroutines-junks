@@ -38,6 +38,12 @@ class MainActivity : AppCompatActivity() {
             coroutineSuspend.setOnClickListener {
                 model.start(FunctionType.Suspend)
             }
+            coroutineChildException.setOnClickListener {
+                model.start(FunctionType.ChildException)
+            }
+            coroutineParentException.setOnClickListener {
+                model.start(FunctionType.ParentException)
+            }
         }
 
         model.getData().observe(this) {

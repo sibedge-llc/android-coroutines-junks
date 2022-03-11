@@ -1,8 +1,6 @@
 package com.sibedge.corutinesdemo
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +9,7 @@ import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.coroutines.resume
@@ -25,43 +24,75 @@ class MainViewModel : ViewModel() {
 
     fun getData(): LiveData<String> = liveData
 
-    private fun startCoroutineOnMainThread() {
-        viewModelScope.launch(Dispatchers.Main) {
-            Log.d(TAG, "start on MAIN")
+    private fun startCoroutineOnDispatcher(
+        dispatcher: CoroutineDispatcher,
+        makeException: Boolean = false
+    ) {
+        viewModelScope.launch(dispatcher) {
+            log("start")
+            liveData.postValue(" delay(5000) ")
             delay(5000)
 
-            Log.d(TAG, "print hi from Main")
-            liveData.postValue("hi")
+            log("print hi")
+            liveData.postValue("---===__hi__===---")
 
-//               long operation which freeze mainThread
-
+//               long operation which freeze thread
+            delay(1000)
             longOperation {
-                liveData.postValue("hi from Main=> $it")
+                liveData.postValue("longOperation=> $it")
             }
-            Log.d(TAG, "print hi from Main")
+            log("end")
 
-//            sendGet() // - sinch request to the network
+            launch {
+                log("start child")
+                log("makeException = $makeException")
+                if (makeException) {
+                    throw Exception("exception in child")
+                }
+            }
+
+            sendGet() // - sinch request to the network
         }
     }
 
-    private fun startCoroutineOnIOThread() {
-        viewModelScope.launch(Dispatchers.IO) {
-            Log.d(TAG, "start in IO")
-            delay(2000)
-            liveData.postValue("hi from Dispatchers.IO")
-            Log.d(TAG, "hi from Dispatchers.IO")
+    private fun startCoroutineOnDispatcherException(
+        dispatcher: CoroutineDispatcher,
+        makeExceptionChild: Boolean = false,
+        makeExceptionParent: Boolean = false
+    ) {
+        viewModelScope.launch(dispatcher) {
+            log("start")
+            liveData.postValue(" delay(5000) ")
+            delay(5000)
 
-//            sendGet() // - sinch request to the network
+            log("print hi")
+            liveData.postValue("---===__hi__===---")
+
+//               long operation which freeze thread
+            delay(1000)
+            log("end")
+
+            log("exceptionChild = $makeExceptionChild exceptionParent = $makeExceptionParent")
+
+            launch {
+                log("start child")
+                if (makeExceptionChild) {
+                    throw Exception("exception in child")
+                }
+                delay(1000)
+                sendGet()
+            }
+            //delay(1000)
+            if (makeExceptionParent) {
+                throw Exception("exception in parent")
+            }
             longOperation {
-                liveData.postValue("from Dispatchers.IO => $it")
+                liveData.postValue("longOperation=> $it")
             }
         }
     }
-
 
     private fun getSuspendRequest() {
-//        val result = suspendOperation()
-
         viewModelScope.launch(Dispatchers.IO) {
             val result = suspendOperation()
             liveData.postValue(result)
@@ -72,12 +103,12 @@ class MainViewModel : ViewModel() {
         getNetworkService().fetchNextTitle().enqueue(
             object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
-                    Log.d(TAG, "networkWithCallback response = $response")
+                    log("networkWithCallback response = $response")
                     liveData.postValue(response.message())
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.d(TAG, "networkWithCallback t = $t")
+                    log("networkWithCallback t = $t")
                     liveData.postValue(t.localizedMessage)
                 }
             }
@@ -85,13 +116,23 @@ class MainViewModel : ViewModel() {
     }
 
     fun start(type: FunctionType) {
-        Log.d(TAG, "clicked $type")
+        log("clicked $type")
         liveData.postValue(type.javaClass.name)
         when (type) {
-            FunctionType.OnMainThread -> startCoroutineOnMainThread()
-            FunctionType.OnIOThread -> startCoroutineOnIOThread()
+            FunctionType.OnMainThread -> startCoroutineOnDispatcher(Dispatchers.Main)
+            FunctionType.OnIOThread -> startCoroutineOnDispatcher(Dispatchers.IO)
             FunctionType.Callback -> networkWithCallback()
             FunctionType.Suspend -> getSuspendRequest()
+            FunctionType.ChildException -> startCoroutineOnDispatcherException(
+                Dispatchers.IO,
+                makeExceptionChild = true,
+                makeExceptionParent = false
+            )
+            FunctionType.ParentException -> startCoroutineOnDispatcherException(
+                Dispatchers.IO,
+                makeExceptionChild = false,
+                makeExceptionParent = true
+            )
         }
     }
 }
@@ -102,6 +143,8 @@ sealed class FunctionType {
     object OnIOThread : FunctionType()
     object Callback : FunctionType()
     object Suspend : FunctionType()
+    object ChildException : FunctionType()
+    object ParentException : FunctionType()
 }
 
 
@@ -110,12 +153,12 @@ suspend fun suspendOperation(): String {
         getNetworkService().fetchNextTitle().enqueue(
             object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
-                    Log.d(MainViewModel.TAG, "networkWithCallback response = $response")
+                    log("networkWithCallback response = $response")
                     continuation.resume(response.message())
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.d(MainViewModel.TAG, "networkWithCallback t = $t")
+                    log("networkWithCallback t = $t")
                     continuation.resume(t.localizedMessage)
                 }
             }
@@ -124,6 +167,7 @@ suspend fun suspendOperation(): String {
 }
 
 fun sendGet() {
+    log("sendGet")
     val url = URL("http://www.google.com/")
 
     with(url.openConnection() as HttpURLConnection) {
@@ -132,18 +176,25 @@ fun sendGet() {
         inputStream.bufferedReader().use {
             it.lines().forEach { line ->
                 println(line)
+                log(line)
             }
         }
     }
+    log("endGet")
 }
 
 fun longOperation(action: (l: Long) -> Unit) {
-    Log.d(MainViewModel.TAG, "start longOperation")
+    log("start longOperation")
     var n = 0L
     while (n < 1000) {
-        Thread.sleep(10) //to freeze mainThread
+        Thread.sleep(10) //to freeze thread
         action(n)
         n++
     }
-    Log.d(MainViewModel.TAG, "end longOperation")
+    log("end longOperation")
+}
+
+fun log(message: String) {
+    val threadName = Thread.currentThread().name
+    Log.d(MainViewModel.TAG, "threadName=$threadName, m= $message")
 }
