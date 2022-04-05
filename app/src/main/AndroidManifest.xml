@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CorutinesDemo">
         <activity
-            android:name=".MainActivity"
+            android:name=".list.UsersLoadActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
