@@ -17,6 +17,7 @@
 package com.sibedge.corutinesdemo.network
 
 
+import com.sibedge.corutinesdemo.Post
 import com.sibedge.corutinesdemo.SkipNetworkInterceptor
 import com.sibedge.corutinesdemo.User
 import okhttp3.OkHttpClient
@@ -47,6 +48,9 @@ fun getFetchNetworkService() = service
 interface FetchDataNetwork {
     @GET("users")
     fun fetchUsers(): Call<List<User>>
+
+    @GET("posts")
+    fun fetchPosts(): Call<List<Post>>
 }
 
 

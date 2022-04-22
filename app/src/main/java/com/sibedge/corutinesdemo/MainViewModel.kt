@@ -9,6 +9,7 @@ import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
@@ -196,5 +197,5 @@ fun longOperation(action: (l: Long) -> Unit) {
 
 fun log(message: String) {
     val threadName = Thread.currentThread().name
-    Log.d(MainViewModel.TAG, "threadName=$threadName, m= $message")
+    Timber.d("threadName=$threadName, m= $message")
 }

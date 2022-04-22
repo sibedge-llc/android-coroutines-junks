@@ -6,13 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/reload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reload"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/cancelGeneralJob"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancelGeneralJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cancelGeneralJob"
+        app:layout_constraintLeft_toRightOf="@id/reload"
+        app:layout_constraintRight_toLeftOf="@id/exception"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancelPostJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="cancelPostJob"
+        app:layout_constraintLeft_toRightOf="@id/reload"
+        app:layout_constraintRight_toLeftOf="@id/exception"
+        app:layout_constraintTop_toBottomOf="@id/cancelGeneralJob" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancelCompanyJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="cancelCompanyJob"
+        app:layout_constraintLeft_toRightOf="@id/reload"
+        app:layout_constraintRight_toLeftOf="@id/exception"
+        app:layout_constraintTop_toBottomOf="@id/cancelPostJob" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/exception"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="exception"
+        app:layout_constraintLeft_toRightOf="@id/cancelGeneralJob"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/usersList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cancelCompanyJob"
+        tools:listitem="@layout/item_user" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
