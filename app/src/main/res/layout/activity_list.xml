@@ -25,6 +25,14 @@
         app:layout_constraintTop_toBottomOf="@id/reload" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/restartPostJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="restPost"
+        app:layout_constraintLeft_toLeftOf="@id/reload"
+        app:layout_constraintTop_toBottomOf="@id/eraseExcept" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cancelGeneralJob"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

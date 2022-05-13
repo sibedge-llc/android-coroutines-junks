@@ -156,6 +156,10 @@ class UsersViewModel : ViewModel() {
         exceptionLevel = 2
         shouldThrowException = true
     }
+
+    fun restartPostJob() {
+        postJob?.start()
+    }
 }
 
 data class JobsState(

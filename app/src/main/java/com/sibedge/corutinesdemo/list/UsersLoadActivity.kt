@@ -1,10 +1,9 @@
 package com.sibedge.corutinesdemo.list
 
-import android.R
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.sibedge.corutinesdemo.databinding.ActivityListBinding
 import com.sibedge.corutinesdemo.log
 import com.sibedge.corutinesdemo.recyclerview.UserAdapter
@@ -82,6 +81,11 @@ class UsersLoadActivity : AppCompatActivity() {
         binding.exceptionAddJob.setOnClickListener {
             usersViewModel.throwExceptionAddJob()
         }
+
+        binding.restartPostJob.setOnClickListener {
+            usersViewModel.restartPostJob()
+        }
+
     }
 
     private fun colorOnStatus(jobStatus: Status): Int =
