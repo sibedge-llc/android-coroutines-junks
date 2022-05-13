@@ -132,26 +132,26 @@
 
 
     <TextView
-        android:id="@+id/addJob1"
+        android:id="@+id/addJob2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
-        android:text="addJob1"
+        android:text="addJob2"
         android:textColor="@android:color/darker_gray"
         app:layout_constraintLeft_toRightOf="@id/companyJob"
         app:layout_constraintTop_toBottomOf="@id/cancelCompanyJob" />
 
     <TextView
-        android:id="@+id/addJob2"
+        android:id="@+id/addJob1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="80dp"
-        android:text="addJob2"
+        android:text="addJob1"
         android:textColor="@android:color/darker_gray"
         app:layout_constraintLeft_toRightOf="@id/companyJob"
-        app:layout_constraintTop_toBottomOf="@id/addJob1" />
+        app:layout_constraintTop_toBottomOf="@id/addJob2" />
 
     <TextView
         android:id="@+id/excText"
@@ -162,7 +162,7 @@
         android:textColor="@android:color/darker_gray"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addJob2" />
+        app:layout_constraintTop_toBottomOf="@id/addJob1" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/usersList"
