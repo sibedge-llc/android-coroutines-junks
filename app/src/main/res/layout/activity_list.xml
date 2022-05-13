@@ -16,12 +16,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/eraseExcept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ResExcept"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/cancelGeneralJob"
+        app:layout_constraintTop_toBottomOf="@id/reload" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cancelGeneralJob"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="cancelGeneralJob"
+        android:text="can_GenJob"
         app:layout_constraintLeft_toRightOf="@id/reload"
-        app:layout_constraintRight_toLeftOf="@id/exception"
+        app:layout_constraintRight_toLeftOf="@id/exceptionGeneral"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -29,9 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="cancelPostJob"
+        android:text="can_PostJob"
         app:layout_constraintLeft_toRightOf="@id/reload"
-        app:layout_constraintRight_toLeftOf="@id/exception"
+        app:layout_constraintRight_toLeftOf="@id/exceptionGeneral"
         app:layout_constraintTop_toBottomOf="@id/cancelGeneralJob" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -39,30 +48,122 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="cancelCompanyJob"
+        android:text="can_CompJob"
         app:layout_constraintLeft_toRightOf="@id/reload"
-        app:layout_constraintRight_toLeftOf="@id/exception"
+        app:layout_constraintRight_toLeftOf="@id/exceptionGeneral"
         app:layout_constraintTop_toBottomOf="@id/cancelPostJob" />
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/exception"
+        android:id="@+id/exceptionGeneral"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="exception"
+        android:text="excGeneral"
         app:layout_constraintLeft_toRightOf="@id/cancelGeneralJob"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/exceptionPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="excPost"
+        app:layout_constraintLeft_toRightOf="@id/cancelGeneralJob"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exceptionGeneral" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/exceptionCompanyJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="excCompJob"
+        app:layout_constraintLeft_toRightOf="@id/cancelGeneralJob"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exceptionPost" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/exceptionAddJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="excAddJob"
+        app:layout_constraintLeft_toRightOf="@id/cancelGeneralJob"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exceptionCompanyJob" />
+
+    <TextView
+        android:id="@+id/globalJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="100dp"
+        android:text="globalJob"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cancelCompanyJob" />
+
+    <TextView
+        android:id="@+id/postJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="postJob"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintLeft_toRightOf="@id/globalJob"
+        app:layout_constraintTop_toBottomOf="@id/cancelCompanyJob" />
+
+    <TextView
+        android:id="@+id/companyJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:text="companyJob"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintLeft_toRightOf="@id/globalJob"
+        app:layout_constraintTop_toBottomOf="@id/cancelCompanyJob" />
+
+
+    <TextView
+        android:id="@+id/addJob1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:text="addJob1"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintLeft_toRightOf="@id/companyJob"
+        app:layout_constraintTop_toBottomOf="@id/cancelCompanyJob" />
+
+    <TextView
+        android:id="@+id/addJob2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="80dp"
+        android:text="addJob2"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintLeft_toRightOf="@id/companyJob"
+        app:layout_constraintTop_toBottomOf="@id/addJob1" />
+
+    <TextView
+        android:id="@+id/excText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="exception"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addJob2" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/usersList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cancelCompanyJob"
+        app:layout_constraintTop_toBottomOf="@id/excText"
         tools:listitem="@layout/item_user" />
 
 
